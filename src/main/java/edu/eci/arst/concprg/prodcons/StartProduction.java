@@ -17,12 +17,12 @@ import java.util.logging.Logger;
 
 public class StartProduction {
     
-    
+    	private static Consumer consumidor;
     public static void main(String[] args) {
         
         Queue<Integer> queue=new LinkedBlockingQueue<>();
-        
-        
+        consumidor = new Consumer(queue);
+        consumidor.start();
         new Producer(queue,Long.MAX_VALUE).start();
         
         //let the producer create products for 5 seconds (stock).
@@ -31,10 +31,13 @@ public class StartProduction {
         } catch (InterruptedException ex) {
             Logger.getLogger(StartProduction.class.getName()).log(Level.SEVERE, null, ex);
         }
+      
         
         
-        new Consumer(queue).start();
+    }
+    	
+    public static void reiniciarConsumidor() {
+    	consumidor.notify();
     }
     
-
 }
