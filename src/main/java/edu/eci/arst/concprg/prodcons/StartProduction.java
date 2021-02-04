@@ -18,12 +18,14 @@ import java.util.logging.Logger;
 public class StartProduction {
     
     	private static Consumer consumidor;
+    	private static Producer productor;
+    	private static boolean inicioconsumidor=false;
     public static void main(String[] args) {
         
         Queue<Integer> queue=new LinkedBlockingQueue<>();
-        consumidor = new Consumer(queue);
-        consumidor.start();
-        new Producer(queue,Long.MAX_VALUE).start();
+        new Producer(queue,10).start();
+        productor = new Producer(queue,10);
+        productor.start();
         
         //let the producer create products for 5 seconds (stock).
         try {
@@ -31,13 +33,28 @@ public class StartProduction {
         } catch (InterruptedException ex) {
             Logger.getLogger(StartProduction.class.getName()).log(Level.SEVERE, null, ex);
         }
-      
-        
-        
+        consumidor = new Consumer(queue);
+        consumidor.start();
     }
     	
+    public static boolean getInicioconsumidor() {
+    	return inicioconsumidor;
+    }
+    
+    public static void setInicioconsumidor(boolean inicio) {
+    	inicioconsumidor=inicio;
+    }
+    
     public static void reiniciarConsumidor() {
-    	consumidor.notify();
+    	synchronized(consumidor) {
+    		consumidor.notify();
+    	}
+    }
+    
+    public static void reiniciarProductor() {
+    	synchronized(productor) {
+    		productor.notify();
+    	}
     }
     
 }

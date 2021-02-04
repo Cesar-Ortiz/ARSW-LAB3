@@ -22,11 +22,18 @@ public class Consumer extends Thread{
     
     @Override
     public void run() {
+    	StartProduction.setInicioconsumidor(true);
         while (true) {
             if (queue.size() > 0) {
-            		int elem=queue.poll();
-                
-                System.out.println("Consumer consumes "+elem);                       
+            	int elem=queue.poll();       
+                System.out.println("Consumer consumes "+elem);  
+                StartProduction.reiniciarProductor();
+                try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
             else {
             	synchronized(this) {
