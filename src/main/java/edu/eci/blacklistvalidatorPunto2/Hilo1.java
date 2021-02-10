@@ -1,8 +1,8 @@
-package edu.eci.arsw.blacklistvalidator;
+package edu.eci.blacklistvalidatorPunto2;
 
 import java.util.LinkedList;
 
-import edu.eci.arsw.spamkeywordsdatasource.HostBlacklistsDataSourceFacade;
+
 
 public class Hilo1 extends Thread{
 	private int inisegmento;

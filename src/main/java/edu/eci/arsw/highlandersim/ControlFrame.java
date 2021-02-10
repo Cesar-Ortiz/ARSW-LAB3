@@ -91,12 +91,26 @@ public class ControlFrame extends JFrame {
                 /*
 				 * COMPLETAR
                  */
+          
+            	for (Immortal im : immortals) {
+                    im.setFlagLife(true);
+            	}
+         
+            	
+            	
+            	/*
+				 * COMPLETADO
+                 */
+            	System.out.println("wd");
                 int sum = 0;
                 for (Immortal im : immortals) {
                     sum += im.getHealth();
                 }
 
                 statisticsLabel.setText("<html>"+immortals.toString()+"<br>Health sum:"+ sum);
+                
+                
+                
                 
                 
 
@@ -110,6 +124,17 @@ public class ControlFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 /**
                  * IMPLEMENTAR
+                 */
+            	for (Immortal im : immortals) {
+            		synchronized(im){
+            			im.notifyAll();
+            		}
+                        im.setFlagLife(false);
+                	
+         	}
+            		
+            	/**
+                 * IMPLEMENTADO
                  */
 
             }
