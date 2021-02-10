@@ -46,6 +46,7 @@ Sincronización y Dead-Locks.
 	* Todos los jugadores comienzan con la misma cantidad de vida que esta definida por la variable DEFAULT_IMMORTAL_HEALTH, después cada uno, obtiene su propia variable vida llamada health.
 
 3. Ejecute la aplicación y verifique cómo funcionan las opción ‘pause and check’. Se cumple el invariante?.
+	* El programa no se detiene, y por la invariente de la vida, siempre se cumple, puesto que siempre tienen una mayor vida, a cada 'pause and check'. 
 
 4. Una primera hipótesis para que se presente la condición de carrera para dicha función (pause and check), es que el programa consulta la lista cuyos valores va a imprimir, a la vez que otros hilos modifican sus valores. Para corregir esto, haga lo que sea necesario para que efectivamente, antes de imprimir los resultados actuales, se pausen todos los demás hilos. Adicionalmente, implemente la opción ‘resume’.
 
