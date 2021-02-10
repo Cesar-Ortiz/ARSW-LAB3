@@ -2,6 +2,8 @@ package edu.eci.arsw.highlandersim;
 
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Immortal extends Thread {
 
@@ -19,8 +21,8 @@ public class Immortal extends Thread {
 
     private final Random r = new Random(System.currentTimeMillis());
 
-
-    public Immortal(String name, List<Immortal> immortalsPopulation, int health, int defaultDamageValue, ImmortalUpdateReportCallback ucb) {
+    private Lock lock;
+    public Immortal(Lock lock,String name, List<Immortal> immortalsPopulation, int health, int defaultDamageValue, ImmortalUpdateReportCallback ucb) {
         super(name);
         flagLife=false;
         this.updateCallback=ucb;
@@ -28,6 +30,7 @@ public class Immortal extends Thread {
         this.immortalsPopulation = immortalsPopulation;
         this.health = health;
         this.defaultDamageValue=defaultDamageValue;
+        this.lock=lock;
     }
 
     public void run() {
@@ -53,7 +56,7 @@ public class Immortal extends Thread {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            while(flagLife){
+            if(flagLife){
 	            synchronized(this){
 	            	try {
 	            		wait();
@@ -72,20 +75,22 @@ public class Immortal extends Thread {
     }
     
     public void fight(Immortal i2) {
-
+    	Lock l=new ReentrantLock();
+    	
+    	synchronized(lock){
+    	lock.lock();
         if (i2.getHealth() > 0) {
-        	synchronized(i2){
-        		synchronized(this){
-	        		i2.changeHealth(i2.getHealth() - defaultDamageValue);
-	        		this.health += defaultDamageValue;
-	        		updateCallback.processReport("Fight: " + this + " vs " + i2+"\n");	
-        		}
-        	}
+        	i2.changeHealth(i2.getHealth() - defaultDamageValue);        	 	
+        			this.health += defaultDamageValue;
+        			updateCallback.processReport("Fight: " + this + " vs " + i2+"\n");
+  
         } else {
-            updateCallback.processReport(this + " says:" + i2 + " is already dead!\n");
-        }
+            updateCallback.processReport(this + " says:" + i2 + " is already dead!\n");       
+    	}lock.unlock();}
+    	
 
     }
+
 
     public void changeHealth(int v) {
         health = v;
@@ -101,16 +106,5 @@ public class Immortal extends Thread {
         return name + "[" + health + "]";
     }
     
-   /*** public void detenerHilo(){
-    	try {
-      	   synchronized(this){
-      		   this.wait();
-      	   }
-			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-    }
-    ***/
-
+   
 }
