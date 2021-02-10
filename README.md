@@ -1,4 +1,4 @@
-
+﻿
   
   
 ### Escuela Colombiana de Ingeniería
@@ -65,6 +65,8 @@ Sincronización y Dead-Locks.
 	```
 
 7. Tras implementar su estrategia, ponga a correr su programa, y ponga atención a si éste se llega a detener. Si es así, use los programas jps y jstack para identificar por qué el programa se detuvo.
+
+![](./img/imagen4.PNG)
 
 8. Plantee una estrategia para corregir el problema antes identificado (puede revisar de nuevo las páginas 206 y 207 de _Java Concurrency in Practice_).
 
