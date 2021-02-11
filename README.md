@@ -50,6 +50,14 @@ Sincronización y Dead-Locks.
 
 4. Una primera hipótesis para que se presente la condición de carrera para dicha función (pause and check), es que el programa consulta la lista cuyos valores va a imprimir, a la vez que otros hilos modifican sus valores. Para corregir esto, haga lo que sea necesario para que efectivamente, antes de imprimir los resultados actuales, se pausen todos los demás hilos. Adicionalmente, implemente la opción ‘resume’.
 
+##Implementando pause and check
+
+![](./img/ar1.JPG)
+
+##Implementando resume
+
+![](./img/ar2.JPG)
+
 5. Verifique nuevamente el funcionamiento (haga clic muchas veces en el botón). Se cumple o no el invariante?.
 
 	* Todavia el invariente de la vida no se cumple, puesto que la suma de la vida de todos los jugadores, da diferente a cada momento.
