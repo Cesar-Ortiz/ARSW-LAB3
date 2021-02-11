@@ -1,0 +1,1 @@
+Se pudo evidenciar que la cantidad de vida de los inmortales era menor a cero, ya que los inmortales que estaban muertos seguian peliando, lo que se hizo para asegurar que esto no pasara fue asegurar el hilo inmortal y proyeger el valor de su vida con la implementación de un lock
